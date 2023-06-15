@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Você Sabia?</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/Quiz.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://kit.fontawesome.com/eb72f0a587.js" crossorigin="anonymous"></script>			
+	</head>
+	<body>
+		<!-- Menu -->
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#"><img src="img/logo.jpg"/></a>
+			</div>
+			<h3 id="infoBasica"> Você Sabia?</h3>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav">
+				<li><a href="Home.html"><i class="fas fa-user-alt"></i> Perfil</a></li>
+				<li><a href="Trilha.html"><i class="fas fa-align-justify"></i> Trilha</a></li>
+				<li class="active"><a href="#"><i class="fas fa-question-circle"></i> Quiz</a></li>
+				<li><a href="Sobre.html"><i class="fas fa-info"></i> Sobre</a></li>
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">
+				<!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+				<li><a href="Index.html"><span class="glyphicon glyphicon-log-in"></span> Sair</a></li>
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+
+		<h4 style="text-align:center"> <i class="fas fa-puzzle-piece"></i> Sua pontuação : 0</h4>
+		<!-- Corpo -->
+		<div class="container-fluid bg-info">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					 <div class="modal-header">
+						<h3><span class="label label-warning" id="qid">2</span> THREE is CORRECT</h3>
+					</div>
+					<div class="modal-body">
+						<div class="col-xs-3 col-xs-offset-5">
+						   <div id="loadbar" style="display: none;">
+							  <div class="blockG" id="rotateG_01"></div>
+							  <div class="blockG" id="rotateG_02"></div>
+							  <div class="blockG" id="rotateG_03"></div>
+							  <div class="blockG" id="rotateG_04"></div>
+							  <div class="blockG" id="rotateG_05"></div>
+							  <div class="blockG" id="rotateG_06"></div>
+							  <div class="blockG" id="rotateG_07"></div>
+							  <div class="blockG" id="rotateG_08"></div>
+						  </div>
+						</div>
+
+						<div class="quiz" id="quiz" data-toggle="buttons">
+							<label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="1">1 One</label>
+							<label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="2">2 Two</label>
+							<label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="3">3 Three</label>
+							<label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="4">4 Four</label>
+						</div>
+					</div>
+					<div class="modal-footer text-muted">
+							<span id="answer"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		$(function(){
+			var loading = $('#loadbar').hide();
+			$(document)
+			.ajaxStart(function () {
+				loading.show();
+			}).ajaxStop(function () {
+				loading.hide();
+			});
+			
+			$("label.btn").on('click',function () {
+				var choice = $(this).find('input:radio').val();
+				$('#loadbar').show();
+				$('#quiz').fadeOut();
+				setTimeout(function(){
+				   $( "#answer" ).html(  $(this).checking(choice) );      
+					$('#quiz').show();
+					$('#loadbar').fadeOut();
+				   /* something else */
+				}, 1500);
+			});
+
+			$ans = 3;
+
+			$.fn.checking = function(ck) {
+				if (ck != $ans)
+					return 'INCORRECT';
+				else 
+					return 'CORRECT';
+			}; 
+		});	
+	</script>
+</html>
